@@ -4,6 +4,7 @@ import App from '../App';
 import Home from '../Pages/Home/Home';
 import Dashboard from '../DashBoard/Dashboard';
 import Overview from '../DashBoard/User/Overview';
+import Sendmoney from '../DashBoard/User/Sendmoney';
 
 export const allRouter = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const allRouter = createBrowserRouter([
           {
             path:'',
             element:<Overview />
+          },
+          {
+            path:'send',
+            element:<Sendmoney />
           }
         ]
       },

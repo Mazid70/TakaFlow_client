@@ -24,7 +24,7 @@ export const userLinks=(
     </li>
     <li>
       <NavLink
-        to="/send"
+        to="/dashboard/send"
         style={({ isActive }) => {
           return {
             fontWeight:'bold',
