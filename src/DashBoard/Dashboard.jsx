@@ -8,6 +8,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 const Dashboard = () => {
   const { user ,setNewUser} = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
+  console.log(user?.email)
   const { data: data = '', refetch } = useQuery({
     queryKey: ['newUser', user?.email],
     queryFn: async () => {

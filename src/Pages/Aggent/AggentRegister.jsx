@@ -3,12 +3,13 @@ import { FaPhoneAlt, FaUser } from 'react-icons/fa';
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import useAxiosPublic from '../../../CustomHooks/AxiosPublic';
+import useAxiosPublic from '../../CustomHooks/AxiosPublic';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Provider/AuthProvider';
+import { AuthContext } from '../../Provider/AuthProvider';
+import Navbar from '../../Components/Navbar';
 
-const Register = () => {
+const AggentRegister = () => {
   const { createUser } = useContext(AuthContext);
   const [isVisible, setVisible] = useState(false);
   const axiosPublic = useAxiosPublic();
@@ -25,10 +26,11 @@ const Register = () => {
     const email = form.email.value;
     const phone = form.phone.value;
     const pin = form.pin.value;
-    const balance = 40;
-    const role = 'user';
+    const balance = 0;
+    const role = 'aggent';
+    const request='pending';
     const password = 123456;
-    const userInfo = { name, email, phone, pin, role, balance };
+    const userInfo = { name, email, phone, pin, role, balance,request };
     createUser(email, password).then(() => {
       axiosPublic.post('/users', userInfo).then(() => {
         Swal.fire({
@@ -43,8 +45,11 @@ const Register = () => {
     });
   };
   return (
-    <div className=" p-8 rounded bg-white bg-opacity-5">
-      <h1 className="font-bold text-3xl italic text-white mb-5">Register as an User</h1>
+    <section className=' bg-[url(public/Background.png)] bg-cover bg-no-repeat'>
+      <Navbar />
+     <div className='flex justify-center items-center min-h-screen'>
+     <div className=" p-8 rounded bg-white bg-opacity-5">
+      <h1 className="font-bold text-3xl italic text-white mb-5">Register as an Aggent</h1>
       <form
         className="text-white w-[300px] space-y-3"
         onSubmit={handleRegister}
@@ -127,12 +132,14 @@ const Register = () => {
       </div>
       <h1 className="text-center">
         {' '}
-        <Link to='/aggent' className="text-white font-semibold hover:text-blue-500 hover:underline">
-          Register as an Aggent
+        <Link to='/' className="text-white font-semibold hover:text-blue-500 hover:underline">
+          Register as an User
         </Link>
       </h1>
     </div>
+     </div>
+    </section>
   );
 };
 
-export default Register;
+export default AggentRegister;

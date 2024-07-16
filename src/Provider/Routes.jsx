@@ -6,6 +6,8 @@ import Dashboard from '../DashBoard/Dashboard';
 import Overview from '../DashBoard/User/Overview';
 import Sendmoney from '../DashBoard/User/Sendmoney';
 import Cashout from '../DashBoard/User/Cashout';
+import AggentRegister from '../Pages/Aggent/AggentRegister';
+import Login from '../Pages/Login';
 
 export const allRouter = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ export const allRouter = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/aggent',
+        element: <AggentRegister />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       },
       {
         path: '/dashboard',
