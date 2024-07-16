@@ -10,6 +10,7 @@ export const userLinks=(
   <li>
       <NavLink
         to="/dashboard"
+        end
         style={({ isActive }) => {
           return {
             fontWeight:'bold',
@@ -39,7 +40,7 @@ export const userLinks=(
     </li>
     <li>
       <NavLink
-        to="/cashout"
+        to="/dashboard/cashout"
         style={({ isActive }) => {
           return {
             fontWeight:'bold',
