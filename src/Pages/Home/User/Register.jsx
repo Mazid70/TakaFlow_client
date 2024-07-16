@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaPhoneAlt, FaUser } from 'react-icons/fa';
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import useAxiosPublic from '../../../CustomHooks/UseAxiosPublic';
+import useAxiosPublic from '../../../CustomHooks/AxiosPublic';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Provider/AuthProvider';
+
 
 
 const Register = () => {
+  const {createUser}=useContext(AuthContext)
   const [isVisible, setVisible] = useState(false);
   const axiosPublic=useAxiosPublic();
+  const navigate=useNavigate();
+
   const handleShowPassword = () => {
     setVisible(!isVisible);
   };
-  
+ 
   const handleRegister = e => {
     e.preventDefault();
     const form = e.target;
@@ -20,8 +27,24 @@ const Register = () => {
     const email = form.email.value;
     const phone = form.phone.value;
     const pin = form.pin.value;
-    const userInfo = { name, email, phone, pin };
-    axiosPublic.post('/users',userInfo)
+    const balance=40;
+    const role="user";
+    const password=parseInt(Math.random()*999999)
+    const userInfo = { name, email, phone, pin,role,balance };
+    createUser(email,password).then(()=>{
+      axiosPublic.post('/users',userInfo)
+      .then(()=>{
+        Swal.fire({
+          title: "Good job!",
+          text: "Registratin successfull",
+          icon: "success",
+          color:"#fff",
+          background: "#000000" // Set background to black
+        });
+        navigate('/dashboard')
+      })
+    })
+    
   };
   return (
     <div className=" p-8 rounded bg-white bg-opacity-5">
@@ -45,7 +68,7 @@ const Register = () => {
           <br />
           <input
             type="email"
-            name="eamil"
+            name="email"
             className="h-10 w-full pl-14 bg-transparent border-b-2 outline-0"
             placeholder="Enter Your Email"
             required
