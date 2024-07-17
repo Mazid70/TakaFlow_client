@@ -49,7 +49,7 @@ const AggentRegister = () => {
       <Navbar />
      <div className='flex justify-center items-center min-h-screen'>
      <div className=" p-8 rounded bg-white bg-opacity-5">
-      <h1 className="font-bold text-3xl italic text-white mb-5">Register as an Aggent</h1>
+      <h1 className="font-bold text-3xl italic text-white mb-5">Register as an Agent</h1>
       <form
         className="text-white w-[300px] space-y-3"
         onSubmit={handleRegister}

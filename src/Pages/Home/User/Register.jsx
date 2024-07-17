@@ -128,7 +128,7 @@ const Register = () => {
       <h1 className="text-center">
         {' '}
         <Link to='/aggent' className="text-white font-semibold hover:text-blue-500 hover:underline">
-          Register as an Aggent
+          Register as an Agent
         </Link>
       </h1>
     </div>

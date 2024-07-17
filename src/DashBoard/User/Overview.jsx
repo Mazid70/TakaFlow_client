@@ -9,7 +9,7 @@ const Overview = () => {
   const navigate = useNavigate();
   const handleLogOut = () => {
     logOut().then(() => {
-      navigate('/');
+      navigate('/login');
     });
   };
   return (
