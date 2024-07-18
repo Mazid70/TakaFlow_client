@@ -9,6 +9,7 @@ import Cashout from '../DashBoard/User/Cashout';
 import AggentRegister from '../Pages/Agent/AgentRegister';
 import Login from '../Pages/Login';
 import Cashin from '../DashBoard/User/Cashin';
+import Manage from '../DashBoard/Agent/Manage';
 
 export const allRouter = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const allRouter = createBrowserRouter([
           {
             path:'cashin',
             element:<Cashin />
+          },
+          {
+            path:'manage',
+            element:<Manage />
           },
         ]
       },

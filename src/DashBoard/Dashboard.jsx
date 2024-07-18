@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { adminLinks, agentLinks, userLinks } from './DashboardRoutes';
 import useAxiosPublic from '../CustomHooks/AxiosPublic';
-import { useContext } from 'react';
+import { useContext, } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../Provider/AuthProvider';
 
@@ -9,15 +9,21 @@ const Dashboard = () => {
   const { user ,setNewUser} = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   console.log(user?.email)
-  const { data: data = '', refetch } = useQuery({
+  const { data: data = '', isLoading ,refetch} = useQuery({
     queryKey: ['newUser', user?.email],
     queryFn: async () => {
       const res = await axiosPublic.get(`/users/${user?.email}`);
       return res.data;
+      
     },
+    
   });
   setNewUser(data)
   console.log(data);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  refetch()
   return (
     <section className="bg-blue-900 flex ">
       <div className="h-screen w-72 bg-gradient-to-b from-black to-blue-950 text-white ">

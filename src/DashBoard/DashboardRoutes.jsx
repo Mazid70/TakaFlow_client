@@ -106,7 +106,7 @@ export const agentLinks=(
     </li>
     <li>
       <NavLink
-        to="/dashboard/send"
+        to="/dashboard/manage"
         style={({ isActive }) => {
           return {
             fontWeight:'bold',

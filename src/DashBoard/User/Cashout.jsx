@@ -1,13 +1,77 @@
-import React from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { MdErrorOutline } from 'react-icons/md';
+import useAxiosPublic from '../../CustomHooks/AxiosPublic';
+import Swal from 'sweetalert2';
 
-const Cashout = () => {
+const CashOut = () => {
+  const [errorMassge, setError] = useState('');
+  const [errorMassge2, setError2] = useState('');
+  const axiosPublic = useAxiosPublic();
+  const { newUser } = useContext(AuthContext);
+  const handleCashOut = e => {
+    e.preventDefault();
+    const form = e.target;
+    const agent = form.agent.value;
+    const userPhone = newUser.phone;
+    const amount = form.amount.value;
+    const pin = form.pin.value;
+    const pending = true;
+    const request='CashOut'
+    const cashIn = { agent, userPhone, amount,request, pending };
+    setError('');
+    setError2('');
+    if (newUser.pin != pin && pin.length != 5) {
+      setError('Pin is incorrect !');
+      return;
+    }
+    axiosPublic.get(`/users/${agent}`).then(
+      res=>{
+        if(res.data.role !='agent'){
+          setError2('Incorrect Agent Number !')
+          return
+        }
+        axiosPublic.post('/cashinout', cashIn).then(
+          ()=>{
+            Swal.fire({
+              title: 'Good job!',
+              text: 'Request Send to Agent',
+              icon: 'success',
+              color: '#fff',
+              background: '#000000', // Set background to black
+            });
+          }
+        )
+      }
+    )
+    //;
+  };
   return (
     <section className="bg-gradient-to-br from-black to-blue-950 text-white p-8 w-[350px] rounded">
-      <form className="space-y-4">
-        <h1 className="font-extrabold text-3xl italic text-center">
-          Cash Out
-        </h1>
-        
+      <form className="space-y-4" onSubmit={handleCashOut}>
+        <h1 className="font-extrabold text-3xl italic text-center">Cash Out</h1>
+        <div className="relative">
+          <label className="font-semibold">Agent Mobile Number:</label>
+          <br />
+          <input
+            type="number"
+            name="agent"
+            className="pl-12 w-full h-10 rounded bg-[#1A1F37] border"
+            placeholder="01234567890"
+            required
+          />
+          <h1 className="absolute top-8 left-3">+88</h1>
+          <p className="text-red-500">
+            {' '}
+            {errorMassge2 ? (
+              <div className="flex items-center gap-1 font-semibold">
+                <MdErrorOutline /> {errorMassge2}
+              </div>
+            ) : (
+              ''
+            )}
+          </p>
+        </div>
         <div>
           <label className="font-semibold">Amount:</label>
           <br />
@@ -18,7 +82,6 @@ const Cashout = () => {
             placeholder="Enter Amount"
             required
           />
-         
         </div>
 
         <div>
@@ -30,7 +93,16 @@ const Cashout = () => {
             placeholder="Enter Your Pin"
             required
           />
-          
+          <p className="text-red-500">
+            {' '}
+            {errorMassge ? (
+              <div className="flex items-center gap-1 font-semibold">
+                <MdErrorOutline /> {errorMassge}
+              </div>
+            ) : (
+              ''
+            )}
+          </p>
         </div>
 
         <input
@@ -43,4 +115,4 @@ const Cashout = () => {
   );
 };
 
-export default Cashout;
+export default CashOut;

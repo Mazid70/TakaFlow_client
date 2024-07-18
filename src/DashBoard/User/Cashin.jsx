@@ -16,9 +16,9 @@ const Cashin = () => {
     const userPhone = newUser.phone;
     const amount = form.amount.value;
     const pin = form.pin.value;
-    const panding = true;
-    const request='cashin'
-    const cashIn = { agent, userPhone, amount,request, panding };
+    const pending = true;
+    const request='CashIn'
+    const cashIn = { agent, userPhone, amount,request, pending };
     setError('');
     setError2('');
     if (newUser.pin != pin && pin.length != 5) {
@@ -106,7 +106,7 @@ const Cashin = () => {
         </div>
 
         <input
-          value="Cash Out"
+          value="Cash In"
           type="submit"
           className="pl-5 w-full h-10 rounded bg-orange-500"
         />
